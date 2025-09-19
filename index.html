@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>I CAAAN’T – icaaant.de</title>
+  <meta name="description" content="Eine kleine, lustige Ein-Seiten‑Site zum Brave‑Mädchen‑Podcast‑Meme: i caaaan’t." />
+  <meta property="og:title" content="I CAAAN’T – icaaant.de" />
+  <meta property="og:description" content="Sag’s mit Stil: i caaaan’t 😭" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='630'%3E%3Crect fill='%230b0b10' width='100%25' height='100%25'/%3E%3Ctext x='50%25' y='52%25' dominant-baseline='middle' text-anchor='middle' font-family='Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif' font-size='96' fill='%23ffffff'%3EI CAAAN%27T%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ctext y='50' x='10' font-size='48'%3E%F0%9F%98%AD%3C/text%3E%3C/svg%3E" />
+  <style>
+    :root{
+      --bg:#0b0b10;--fg:#eef2ff;--muted:#a7adc0;--accent:#8b5cf6;--accent2:#22d3ee;--card:#161821;--good:#10b981;--bad:#ef4444;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial,sans-serif;background:radial-gradient(1200px 600px at 80% -10%,rgba(139,92,246,.15),transparent),radial-gradient(1200px 600px at 10% 110%,rgba(34,211,238,.12),transparent),var(--bg);color:var(--fg);display:flex;align-items:center;justify-content:center}
+    .container{width:min(900px,92vw);padding:24px}
+    header{display:flex;gap:12px;align-items:center;justify-content:space-between;margin-bottom:16px}
+    .brand{display:flex;gap:10px;align-items:center}
+    .logo{width:40px;height:40px;display:grid;place-items:center;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 10px 30px rgba(0,0,0,.25)}
+    .title{font-weight:800;letter-spacing:.5px}
+    .card{background:rgba(22,24,33,.7);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:18px 18px}
+    .big{font-size:clamp(32px,8vw,96px);line-height:1.05;font-weight:900;letter-spacing:.02em;margin:12px 0 10px;text-wrap:balance}
+    .sub{color:var(--muted);margin:0 0 12px}
+    .controls{display:grid;grid-template-columns:1fr;gap:12px;margin:14px 0}
+    .row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+    .btn{appearance:none;border:0;background:linear-gradient(180deg,var(--accent),#6d28d9);color:white;padding:10px 14px;border-radius:12px;font-weight:700;cursor:pointer;box-shadow:0 6px 18px rgba(139,92,246,.35);transition:transform .08s}
+    .btn.secondary{background:linear-gradient(180deg,#1f2937,#0f172a);box-shadow:inset 0 0 0 1px rgba(255,255,255,.06)}
+    .btn:active{transform:translateY(1px)}
+    .slider{accent-color:var(--accent);width:220px}
+    .pill{padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);font-size:12px;color:var(--muted)}
+    .mini{font-size:12px;color:var(--muted)}
+    .grid{display:grid;grid-template-columns:1fr;gap:12px}
+    .marquee{overflow:hidden;white-space:nowrap;border-radius:12px;border:1px dashed rgba(255,255,255,.12);padding:8px;font-weight:700;color:#fff}
+    .marquee span{display:inline-block;padding-left:100%;animation:run 9s linear infinite}
+    @keyframes run{0%{transform:translateX(0)}100%{transform:translateX(-100%)} }
+    footer{opacity:.7;margin-top:18px;font-size:12px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+    a{color:#c4b5fd}
+    .hidden{display:none}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo" aria-hidden="true">😭</div>
+        <div>
+          <div class="title">I CAAAN’T</div>
+          <div class="mini">Eine Hommage ans <strong>„i caaaan’t“</strong>-Meme (Brave Mädchen Podcast). Kein Tracking. Nur Spaß.</div>
+        </div>
+      </div>
+      <button id="toggleDark" class="btn secondary" title="Theme toggle">🌗</button>
+    </header>
+
+    <section class="card">
+      <div id="meme" class="big" aria-live="polite">I caaaaan’t</div>
+      <p class="sub">Zieh am Regler für mehr „a“ – teile deinen Link – oder kopiere die Phrase.</p>
+      <div class="controls">
+        <div class="row">
+          <label class="pill">Anzahl „a“: <span id="aCount">4</span></label>
+          <input id="slider" class="slider" type="range" min="1" max="30" value="4" />
+          <button id="shuffle" class="btn" title="Zufällig">🎲 Random</button>
+          <button id="copy" class="btn secondary" title="Kopieren">📋 Kopieren</button>
+          <button id="share" class="btn secondary" title="Teilen">🔗 Teilen</button>
+        </div>
+        <div class="row mini">
+          <span>Permalink: <code id="permalink">icaaant.de</code></span>
+        </div>
+      </div>
+      <div class="marquee"><span>i caaaan’t • ich kann nicht • i caaaan’t • ich kann nicht • i caaaan’t •</span></div>
+    </section>
+
+    <section class="grid" style="margin-top:12px">
+      <div class="card">
+        <strong>Was ist das?</strong>
+        <p>Ein kleines Spaßprojekt zum „i caaaan’t“-Meme aus dem <em>Brave Mädchen</em>-Podcast. Du steuerst, wie lang das „a“ gezogen wird, und teilst den Link. Fertig.</p>
+        <ul class="mini">
+          <li>💸 Kosten: 0€ Hosting (GitHub Pages/Netlify/Vercel)</li>
+          <li>🔒 Datenschutz: keine Cookies, keine Tracker</li>
+          <li>🧩 Open‑Source: eine einzelne HTML‑Datei</li>
+        </ul>
+      </div>
+      <div class="card">
+        <strong>Easter Eggs</strong>
+        <p class="mini">Probiere die <code>↑↑↓↓←→←→BA</code>‑Kombination oder halte die Maustaste auf dem Text …</p>
+      </div>
+    </section>
+
+    <footer>
+      <div>© <span id="year"></span> icaaant.de • Meme‑Fun, keine Verbindung zum Podcast.</div>
+      <div class="mini">Made with 💜 – Fork mich auf <a href="#" id="gh">GitHub</a></div>
+    </footer>
+  </div>
+
+  <script>
+    const qs = s => document.querySelector(s);
+    const meme = qs('#meme');
+    const slider = qs('#slider');
+    const aCount = qs('#aCount');
+    const permalink = qs('#permalink');
+    const shareBtn = qs('#share');
+    const copyBtn = qs('#copy');
+    const shuffleBtn = qs('#shuffle');
+    const year = qs('#year');
+    const toggleDark = qs('#toggleDark');
+
+    year.textContent = new Date().getFullYear();
+
+    function buildPhrase(n){
+      const a = 'a'.repeat(Math.max(1, n|0));
+      return `I c${a}an’t`;
+    }
+
+    function setCount(n, pushUrl=true){
+      slider.value = n; aCount.textContent = n;
+      const text = buildPhrase(n);
+      meme.textContent = text;
+      const url = new URL(window.location.href);
+      url.searchParams.set('a', n);
+      permalink.textContent = url.toString();
+      if (pushUrl) history.replaceState({}, '', url);
+    }
+
+    // init from URL
+    const init = parseInt(new URLSearchParams(location.search).get('a')||'4',10);
+    setCount(isFinite(init)?init:4, false);
+
+    slider.addEventListener('input', e => setCount(e.target.value));
+
+    shuffleBtn.addEventListener('click', () => setCount(Math.floor(1+Math.random()*30)));
+
+    copyBtn.addEventListener('click', async () => {
+      try{
+        await navigator.clipboard.writeText(meme.textContent);
+        flash('Kopiert!');
+      }catch{ flash('Konnte nicht kopieren'); }
+    });
+
+    shareBtn.addEventListener('click', async () => {
+      const url = new URL(window.location.href);
+      try{
+        if (navigator.share){
+          await navigator.share({title:'I CAAAN’T', text:meme.textContent, url:url.toString()});
+        } else {
+          await navigator.clipboard.writeText(url.toString());
+          flash('Link kopiert!');
+        }
+      }catch{ /* user cancelled */ }
+    });
+
+    // hold to wobble
+    let wobbleInt;
+    meme.addEventListener('pointerdown', () => {
+      let t=0; clearInterval(wobbleInt);
+      wobbleInt = setInterval(()=>{
+        meme.style.transform = `scale(${1+Math.sin(t)/25}) rotate(${Math.sin(t/2)/80}turn)`;
+        t+=0.25;
+      }, 16);
+    });
+    window.addEventListener('pointerup', ()=>{ clearInterval(wobbleInt); meme.style.transform=''; });
+
+    // Konami code
+    const KC = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','KeyB','KeyA'];
+    let idx=0;
+    window.addEventListener('keydown', (e)=>{
+      if(e.code===KC[idx]){ idx++; if(idx===KC.length){ idx=0; party(); } }
+      else idx = 0;
+    });
+
+    function party(){
+      flash('Konami!');
+      document.body.animate([
+        {filter:'hue-rotate(0deg)'},
+        {filter:'hue-rotate(360deg)'}
+      ],{duration:1500,iterations:1});
+    }
+
+    function flash(msg){
+      const el=document.createElement('div');
+      el.textContent=msg; el.style.position='fixed'; el.style.bottom='16px'; el.style.left='50%'; el.style.transform='translateX(-50%)';
+      el.style.background='rgba(0,0,0,.8)'; el.style.color='#fff'; el.style.padding='10px 14px'; el.style.borderRadius='10px'; el.style.fontWeight='700'; el.style.zIndex='9999';
+      document.body.appendChild(el); setTimeout(()=>el.remove(),1200);
+    }
+
+    // theme toggle (persist in localStorage)
+    const THEME_KEY='icaaant-theme';
+    function applyTheme(t){ document.documentElement.dataset.theme=t; if(t==='light'){ document.body.style.background='#f6f7fb'; document.body.style.color='#0b0b10'; } else { document.body.style.background=''; document.body.style.color=''; } }
+    applyTheme(localStorage.getItem(THEME_KEY)||'dark');
+    toggleDark.addEventListener('click',()=>{
+      const next=(localStorage.getItem(THEME_KEY)||'dark')==='dark'?'light':'dark';
+      localStorage.setItem(THEME_KEY,next); applyTheme(next);
+    });
+
+    // replace fake GitHub link if deployed on GH Pages
+    const gh = qs('#gh');
+    const host = location.hostname;
+    if(host.includes('github.io')) gh.href = location.origin;
+    else gh.href = 'https://github.com/';
+  </script>
+</body>
+</html>
